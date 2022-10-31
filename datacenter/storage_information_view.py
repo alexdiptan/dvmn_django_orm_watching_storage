@@ -17,6 +17,6 @@ def storage_information_view(request):
         )
 
     context = {
-        'non_closed_visits': not_closed_visits,
+        'non_closed_visits': serialized_visits,
     }
     return render(request, 'storage_information.html', context)
