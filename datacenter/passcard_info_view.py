@@ -9,11 +9,7 @@ def passcard_info_view(request, passcode):
     all_visits_by_passcard = Visit.objects.filter(passcard=passcard)
     this_passcard_visits = []
     for visit in all_visits_by_passcard:
-        if visit.leaved_at is None:
-            duration = format_duration(get_duration(visit))
-        else:
-            duration = format_duration(visit.leaved_at - visit.entered_at)
-
+        duration = format_duration(get_duration(visit))
         this_passcard_visits.append(
             {
                 'entered_at': visit.entered_at,

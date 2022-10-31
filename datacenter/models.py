@@ -34,7 +34,11 @@ class Visit(models.Model):
 
 
 def get_duration(visit) -> datetime.timedelta:
-    time_delta = localtime() - visit.entered_at
+    if visit.leaved_at is None:
+        time_delta = localtime() - visit.entered_at
+    else:
+        time_delta = visit.leaved_at - visit.entered_at
+
     return time_delta
 
 
@@ -47,11 +51,7 @@ def format_duration(duration: datetime.timedelta) -> str:
 
 
 def is_visit_long(visit, minutes=60):
-    if visit.leaved_at is None:
-        visit_timedelta = get_duration(visit)
-    else:
-        visit_timedelta = visit.leaved_at - visit.entered_at
-
+    visit_timedelta = get_duration(visit)
     minutes_to_seconds = minutes * 60
     if int(visit_timedelta.total_seconds()) > minutes_to_seconds:
         return True
