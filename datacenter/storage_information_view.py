@@ -3,7 +3,6 @@ from django.shortcuts import render
 
 
 def storage_information_view(request):
-    # Программируем здесь
     serialized_visits = []
     not_leaved_visits = Visit.objects.filter(leaved_at__isnull=True)
     for some_visit in not_leaved_visits:
